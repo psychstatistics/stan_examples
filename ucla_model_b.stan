@@ -29,8 +29,8 @@
     }
     alcuse ~ normal(mu,sig_e);    // likelhood
     b ~ normal(0,5);
-    sig_e ~ cauchy(0,5);
-    sig_u ~ cauchy(0,5);
+    sig_e ~ cauchy(0,2);
+    sig_u ~ cauchy(0,2);
     Omega ~ lkj_corr(2.0);
   }
 
