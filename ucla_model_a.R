@@ -12,3 +12,14 @@ parms <- c("b", "sig_e", "sig_u")
 randint_data <- list(alcuse=alcuse, N=N, id=id, J=J)
 fit0 <- stan(file = "ucla_model_a.stan", pars = parms, data = randint_data, iter=10000, chains=3)
 print(fit0)
+
+
+fit_data <- as.data.frame(fit0)
+head(fit_data)
+mean(fit_data$sig_u^2)
+mean(fit_data$sig_e^2)
+mean(fit_data$b)
+
+
+
+

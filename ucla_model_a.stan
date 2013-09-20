@@ -5,10 +5,10 @@ data {
   int<lower=1, upper=J> id[N];  //subject id
 }
 parameters {
-  real b;      // intercept and slope
-  real u[J];   // random intercept and slope
+  real b;      // intercept 
+  real u[J];   // random intercept 
   real<lower = 0> sig_e;  // residual variance 
-  real<lower=0> sig_u;   // cluster variances for intercept and slope
+  real<lower=0> sig_u;   // cluster variance for intercept 
 }
 model {
   real mu[N];
