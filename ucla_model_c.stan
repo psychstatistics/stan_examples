@@ -2,12 +2,13 @@
     int<lower=1> N;
     real alcuse[N];   //outcome
     real age_14[N];   //predictor
+    int<lower=0> coa[N];
     int<lower=1> J;   //number of subjects
     int<lower=1, upper=J> id[N];  //subject id
     vector[2] mu_prior; //vector of zeros passed in from R
   }
   parameters {
-    vector[2] b;      // intercept and slope
+    vector[4] b;      // intercept and slope
     vector[2] u[J];   // random intercept and slope
     real<lower = 0> sig_e;  // residual variance 
     vector<lower=0>[2] sig_u;   // cluster variances for intercept and slope
@@ -26,7 +27,8 @@
       u[j] ~ multi_normal_cholesky(mu_prior, L_beta);
     }
     for (i in 1:N) {
-      mu[i] <- b[1] + b[2]*age_14[i] + u[id[i], 1] + u[id[i], 2]*age_14[i];
+      mu[i] <- b[1] + b[2]*age_14[i] + b[3]*coa[i] + 
+              b[4]*coa[i]*age_14[i] + u[id[i], 1] + u[id[i], 2]*age_14[i];
     }
     alcuse ~ normal(mu,sig_e);    // likelhood
     b ~ normal(0,5);
